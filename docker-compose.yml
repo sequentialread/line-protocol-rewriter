@@ -3,7 +3,7 @@ version: '2'
 # experimental reverse proxy to filter/modify incoming metrics based on a configuration file.
 services:
   line-protocol-rewriter:
-    image: fjohnson/line-protocol-rewriter:0.1.0
+    image: sequentialread/line-protocol-rewriter:0.1.0
     environment:
       GOMAXPROCS: 1
       LPRW_BACKENDHOSTPORT: influxdb:8086
