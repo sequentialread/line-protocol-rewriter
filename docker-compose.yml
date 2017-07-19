@@ -1,0 +1,14 @@
+version: '2'
+# line-protocol-rewriter
+# experimental reverse proxy to filter/modify incoming metrics based on a configuration file.
+services:
+  line-protocol-rewriter:
+    image: fjohnson/line-protocol-rewriter:0.1.0
+    environment:
+      GOMAXPROCS: 1
+      LPRW_BACKENDHOSTPORT: influxdb:8086
+    external_links:
+    - influxdb/influxdb:influxdb
+    labels:
+      io.rancher.scheduler.affinity:host_label: host.type=influxdb
+      io.rancher.container.hostname_override: container_name
