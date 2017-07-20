@@ -1,4 +1,4 @@
-metric_of_the_seventh_order,clustera,group=b,partition=0,topic=lunch lag=0,offset=1635 1495036409309000000
-foo_metrics,barAddress=207.212.1.1,disposition=SUCCESS lag=0 1495036409309000000
-foo_metrics,barAddress=207.212.1.1,disposition=FAILURE lag=0 1495036409309000000
-foo_metrics,barAddress=2.2.2.2,disposition=FAILURE lag=0 1495036409309000000
+dance_floor_metric,cluster=a,group=b,partition=0,style=disco lag=0,offset=1635 1495036409309000000
+foo,barAddress=207.212.1.1,disposition=SUCCESS lag=0 1495036409309000000
+foo,barAddress=207.212.1.1,disposition=FAILURE lag=0 1495036409309000000
+foo,barAddress=2.2.2.2,disposition=FAILURE lag=0 1495036409309000000

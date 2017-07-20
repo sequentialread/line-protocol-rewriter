@@ -129,8 +129,10 @@ func modifyBody(config *Config, body io.ReadCloser, contentLength int64) (io.Rea
 
   for {
     point, hasMore := <- pointsChannel
-    mutatePointModel(config, &point)
-    writePoint(resultBuffer, &point)
+    if len(point.Fields) > 0 {
+      mutatePointModel(config, &point)
+      writePoint(resultBuffer, &point, hasMore)
+    }
     if !hasMore {
       break
     }
@@ -195,10 +197,10 @@ func readPoints(body io.ReadCloser, pointsChannel chan PointModel) {
             lineProtocolState = TagKeyState
             readStringLength = 0
           } else if b == spaceByte && !lastCharacterWasEscape {
-              point.MeasurementName = string(readStringBuffer[:readStringLength])
-              //fmt.Printf("1 %s \n", point.MeasurementName)
-              lineProtocolState = FieldKeyState
-              readStringLength = 0
+            point.MeasurementName = string(readStringBuffer[:readStringLength])
+            //fmt.Printf("1 %s \n", point.MeasurementName)
+            lineProtocolState = FieldKeyState
+            readStringLength = 0
           } else {
             readStringBuffer[readStringLength] = b
             readStringLength ++
@@ -284,7 +286,7 @@ func readPoints(body io.ReadCloser, pointsChannel chan PointModel) {
   }
 }
 
-func writePoint(writer *bytes.Buffer, point *PointModel) {
+func writePoint(writer *bytes.Buffer, point *PointModel, hasMore bool) {
   writer.Write([]byte(point.MeasurementName))
   tagsCount := len(point.Tags)
   tagIndex := 0
@@ -320,5 +322,7 @@ func writePoint(writer *bytes.Buffer, point *PointModel) {
   }
   writer.WriteByte(spaceByte)
   writer.Write([]byte(point.Timestamp))
-  writer.WriteByte(newlineByte)
+  if hasMore {
+    writer.WriteByte(newlineByte)
+  }
 }

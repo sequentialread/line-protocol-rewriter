@@ -6,5 +6,6 @@ if [ -z $1 ]; then
 fi
 
 /usr/local/go/bin/go build -o line-protocol-rewriter main.go sortByteSlices.go \
+ && ./runTest.sh \
  && docker build -t sequentialread/line-protocol-rewriter:$1 . \
  && docker push sequentialread/line-protocol-rewriter:$1
