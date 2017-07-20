@@ -28,8 +28,7 @@ echo '
 
 '
 
-expected=$(cat line-protocol.txt)
-actual=$(cat test-result.txt)
+diff test-result.txt line-protocol.txt
 
 echo '
 
@@ -37,7 +36,8 @@ echo '
 
 '
 
-diff test-result.txt line-protocol.txt
+expected=$(cat line-protocol.txt)
+actual=$(cat test-result.txt)
 
 rm -f test-result.txt
 
