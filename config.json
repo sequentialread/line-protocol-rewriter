@@ -4,7 +4,20 @@
   "BackendScheme": "http",
   "Rewriters": [
     {
-      
+      "Name": "test",
+      "MeasurementNameMustMatch": "dance_floor_metric",
+      "AddFields": [
+        {
+          "Key": "partition",
+          "ValueTemplate": "{{ index .Tags \"partition\" }}"
+        }
+      ],
+      "RemoveTags":["partition"]
     }
-  ]
+  ],
+  "SelfMetrics": {
+    "FlushInterval": "10s",
+    "Database": "aws",
+    "MetricName": "line-protocol-rewriter"
+  }
 }
